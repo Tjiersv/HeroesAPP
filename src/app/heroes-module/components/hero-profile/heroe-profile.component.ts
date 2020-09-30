@@ -52,7 +52,6 @@ export class HeroeProfileComponent implements OnInit {
   getTeam(team):void{
     this.team = team;
     this.heroesService.teams.set(this.heroe.id, this.team);
-    debugger;
     let mani = this.heroesService.getTeamColor(this.heroe.id);
   }
 
