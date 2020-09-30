@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { Heroe } from 'src/app/shared/classes/heroe';
 import { environment } from 'src/environments/environment';
-import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

@@ -33,7 +33,6 @@ export class HeroeProfileComponent implements OnInit {
           .getHeroe(this.id)
           .pipe(map(data => data.data.results))
           .subscribe(res => {
-            console.log(res);
             const {id, name, description, modified, thumbnail, resourceURI, teamColor, ...rest} = res[0];
             this.heroe = new Heroe(id, name, description, modified, thumbnail, resourceURI, this.heroesService.getTeamColor(id));
         });
@@ -52,7 +51,7 @@ export class HeroeProfileComponent implements OnInit {
   getTeam(team):void{
     this.team = team;
     this.heroesService.teams.set(this.heroe.id, this.team);
-    let mani = this.heroesService.getTeamColor(this.heroe.id);
+    //let mani = this.heroesService.getTeamColor(this.heroe.id);
   }
 
 }
