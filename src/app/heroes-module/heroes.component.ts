@@ -21,13 +21,6 @@ export class HeroesComponent implements OnInit {
   submitSearch(page?: number) {
     this.heroesService
       .getHeroes(this.searchString, page)
-      .pipe(map(data => {
-        console.log(data);
-        return {
-          "total": data.data.total,
-          "data": data.data.results
-        }
-      }))
       .subscribe(({total, data}) => { 
         console.log(total, this.heroesService.step, data);
         this.heroes = data.map(({id, name, description, modified, thumbnail, resourceURI, teamColor, ...rest}) => new Heroe(id, name, description, modified, thumbnail, resourceURI, this.heroesService.getTeamColor(id)))

@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { Heroe } from 'src/app/shared/classes/heroe';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroesService {
 
-  private protocol = environment.protocol;
-  private ApiUrl = environment.apiUrl;
   public heroes: Array<Heroe> = [];
   public teams = new Map();
   public page = 0;
@@ -25,42 +25,65 @@ export class HeroesService {
 
   constructor(private http: HttpClient) { }
 
-  private getPathApi() {
-    return `${this.protocol}://${this.ApiUrl}`;
+  private getApiUrl(): string {
+    return `${environment.protocol}://${environment.apiUrl}`;
   };
+
+  private getApiKey(): string {
+    return `apikey=${environment.apiKey}`;
+  }
+
+  private getSearchPath(nameStartsWith?: string): string {
+    if (nameStartsWith) {return `nameStartsWith=${nameStartsWith}`};
+  }
+
+  private getPagination(): string {
+    return `offset=${this.page * this.step}`;
+  }
+
+  private getCharacterRoute(id?: string): string {
+    return (id) ? `characters/${id}` : 'characters';
+  }
+
+  private generateUrl(route: string, query: string): string {
+    return `${this.getApiUrl()}/${route}?${query}`;
+  }
+
+  private createQuery(queryArray: string[]) {
+    return [this.getApiKey(), ...queryArray].join('&');
+  }
 
   private validatePage(page?: number) {
     if (page || page === 0) { this.page = page };
   }
 
-  private getSearchPath(nameStartsWith?: string) {
-    return (nameStartsWith) ? `&nameStartsWith=${nameStartsWith}` : '';
-  }
-
-  private getPagination() {
-    return `&offset=${this.page * this.step}`;
-  }
-
   resetPager() { this.page = 0; }
 
-  getHeroes(nameStartsWith?: string, page?: number) {
+  getHeroes(nameStartsWith?: string, page?: number): Observable<any> {
     this.validatePage(page);
-    const url = `${this.getPathApi()}characters?apikey=${environment.apiKey}${this.getPagination()}${this.getSearchPath(nameStartsWith)}`;
-    console.log(url);
-    return this.http.get<any>(url);
+    const ROUTE = this.getCharacterRoute();
+    const QUERY = this.createQuery([this.getPagination(), this.getSearchPath(nameStartsWith)]);
+    const URL = this.generateUrl(ROUTE, QUERY);
+    console.log('URL', URL);
+    return this.http.get<any>(URL)
+      .pipe(
+        map(data => ({
+          "total": data.data.total,
+          "data": data.data.results
+        }))
+      );
   }
 
-  getHeroe(id: string) {
-    const url = `${this.getPathApi()}characters/${id}?apikey=${environment.apiKey}`;
-    return this.http.get<any>(url);
+  getHeroe(id: string): Observable<any> {
+    const ROUTE = this.getCharacterRoute(id);
+    const QUERY = this.createQuery([]);
+    const URL = this.generateUrl(ROUTE, QUERY);
+    console.log('URL', URL);
+    return this.http.get<any>(URL).pipe(map(data => data.data.results));
   }
 
-  getTeamColor(id): string {
-    if (this.teams.get(id) != undefined) {
-      return this.teams.get(id);
-    } else {
-      return "";
-    }
+  getTeamColor(id: string): string {
+    if (this.teams.get(id) != undefined) { return this.teams.get(id); }
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { map } from 'rxjs/operators';
-import { Heroe } from 'src/app/shared/classes/heroe';
+import { Heroe } from 'src/app/shared/interfaces/heroe';
 import { HeroesService } from '../../../shared/services/heroes.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class HeroeProfileComponent implements OnInit {
   private id;
   public heroe: Heroe;
   public question_modal: string;
-  public team:string = "";
+  public team: string = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -31,27 +31,33 @@ export class HeroeProfileComponent implements OnInit {
         this.id = params.id;
         this.heroesService
           .getHeroe(this.id)
-          .pipe(map(data => data.data.results))
           .subscribe(res => {
-            const {id, name, description, modified, thumbnail, resourceURI, teamColor, ...rest} = res[0];
-            this.heroe = new Heroe(id, name, description, modified, thumbnail, resourceURI, this.heroesService.getTeamColor(id));
-        });
-    });
+            const { id, name, description, modified, thumbnail, resourceURI, teamColor, ...rest } = res[0];
+            const teamLocal = this.heroesService.getTeamColor(id);
+            this.heroe = {
+              id,
+              name,
+              description,
+              modified,
+              thumbnail,
+              resourceURI,
+              'teamColor': (teamLocal) ? teamLocal : teamColor
+            }
+            //this.heroe = new Heroe(id, name, description, modified, thumbnail, resourceURI, this.heroesService.getTeamColor(id));
+          });
+      });
   }
 
-  goBack() {
-    this.location.back();
-  }
+  goBack() { this.location.back(); }
 
-  launchModal():void{
-    this.question_modal="¿En cual grupo quieres colocar a tu súper héroe?";
+  launchModal(): void {
+    this.question_modal = "¿En cual grupo quieres colocar a tu súper héroe?";
     this.modal.toggle_modal();
   }
 
-  getTeam(team):void{
+  getTeam(team): void {
     this.team = team;
     this.heroesService.teams.set(this.heroe.id, this.team);
-    //let mani = this.heroesService.getTeamColor(this.heroe.id);
   }
 
 }

@@ -12,13 +12,7 @@ describe('HeroesService', () => {
     service = new HeroesService(http);
 
     service.teams.set('1', 'azul');
-    service.teams.set('2', 'verde');
   
-  });
-
-  it('Test getTeamColor function id 1', () => {
-    const teamColor = service.getTeamColor('1');
-    expect(teamColor).toBe('azul');
   });
 
   it('Test getTeamColor function id 2', () => {
