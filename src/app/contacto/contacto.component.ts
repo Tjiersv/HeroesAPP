@@ -31,6 +31,12 @@ export class ContactoComponent implements OnInit {
 
       this.message.setValue('hola');
 
+      this.formBuilder.array([
+        this.formBuilder.group({
+          otro: 
+        })
+      ])
+
   }
 
   onSubmit() {
@@ -61,6 +67,8 @@ export class ContactoComponent implements OnInit {
     //this.miGrupo.setValue({
     //  email: 'tjier@tjier.tjier'
     //});
+
+    this.miGrupo.valueChanges()
 
     this.miGrupo.patchValue({
       email: 'tjier@tjier.tjier'
