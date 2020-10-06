@@ -14,15 +14,48 @@
         <p *ngIf="heroe.description !== ''">{{heroe.description}}</p>
         <p class="modified">{{heroe.modified | date:'fullDate'}}, {{heroe.modified | date:'shortTime'}}</p>
       </div>
-      <p *ngIf="team!=undefined && team!=''">Acabas de clasificar a tu heroe en el equipo <b [style.color]="heroesService.group_colors[team]">{{team}}</b></p>
+      <p *ngIf="team!=undefined && team!=''">Acabas de clasificar a tu heroe en el equipo <b
+          [style.color]="heroesService.group_colors[team]">{{team}}</b></p>
     </div>
     <p><button type="button" class="btn btn-primary" (click)="launchModal()">Clasificar</button></p>
+
+    <br>
+    <!-- BASIC Reactive Form -->
+    <div>
+      <form (ngSubmit)="onSubmit()">
+      <label for="message">
+        <h3>Mensaje</h3>
+      </label>
+      <input name="message" type="text" [formControl]="message">
+      <button class="btn btn-primary" type="submit">ENVIAR</button>
+    </form>  
+    </div>
+
+    <br>
+
+    <!-- Reactive Form -->
+    <form [formGroup]="miGrupo" (ngSubmit)="handleSubmit()">
+      <div>
+        <label for="phone">
+          <h3>Teléfono</h3>
+        </label>
+        <input name="phone" type="number" formControlName="phone">
+        <p *ngIf="miGrupo.get('phone').invalid">Error formato teléfono</p>
+      </div>
+      <div>
+        <label for="email">
+          <h3>Correo</h3>
+        </label>
+        <input name="email" type="text" formControlName="email">
+        <p *ngIf="miGrupo.get('email').invalid">Error formato email</p>
+      </div>
+      <button class="btn btn-primary" type="submit">ENVIAR</button>
+    </form>
+
+    <br>
+
   </div>
-  <app-modal-poll 
-    (setTeam)="getTeam($event)"
-    [title_modal]="question_modal"
-    [team_selected]="team" 
-    #modal
-  >
+  <app-modal-poll (setTeam)="getTeam($event)" [title_modal]="question_modal" [team_selected]="team" #modal>
   </app-modal-poll>
+
 </ng-container>

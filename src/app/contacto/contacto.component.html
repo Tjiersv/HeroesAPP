@@ -1,0 +1,46 @@
+<div class="container">
+
+    <br>
+    <h3>FORM CONTROL</h3>
+    <!-- BASIC Reactive Form -->
+    <form class="form-group" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="message">
+                <h3>Mensaje</h3>
+            </label>
+            <input class="form-control" name="message" type="text" [formControl]="message">
+            <p class="danger-text" *ngIf="message.invalid">Error formato del mensaje</p>
+        </div>
+        
+        <button class="btn btn-primary" type="submit">ENVIAR</button>
+    </form>
+
+    <br>
+    <h3>FORM BUILDER</h3>
+
+    <!-- Reactive Form -->
+    <form class="form-group" [formGroup]="miGrupo" (ngSubmit)="handleSubmit()">
+
+        <div class="form-group">
+            <label for="phone">
+                <h3>Teléfono</h3>
+            </label>
+            <input class="form-control" name="phone" type="number" formControlName="phone">
+            <p class="danger-text" *ngIf="miGrupo.get('phone').invalid">Error formato teléfono</p>
+        </div>
+
+        <div class="form-group">
+            <label for="email">
+                <h3>Correo</h3>
+            </label>
+            <input class="form-control" name="email" type="text" formControlName="email">
+            <P class="danger-text" *ngIf="miGrupo.get('email').value !== '' && miGrupo.get('email').invalid">Favor de ingresar un formato correcto</P>
+        </div>
+
+        <button class="btn btn-primary" type="submit">ENVIAR</button>            
+
+    </form>
+
+    <button class="btn btn-danger" type="button" (click)="changeValues()">SET VALUE</button> 
+
+</div>

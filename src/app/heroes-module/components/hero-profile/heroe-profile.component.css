@@ -1,0 +1,7 @@
+label {
+    padding-right: 10px;
+}
+
+label, p {
+    color: white !important;
+}

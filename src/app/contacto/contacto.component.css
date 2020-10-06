@@ -1,0 +1,16 @@
+label {
+    padding-right: 10px;
+}
+
+label {
+    color: white !important;
+}
+
+h3 {
+    color: white;
+}
+
+.danger-text {
+    color: red;
+    text-transform: uppercase !important;
+}

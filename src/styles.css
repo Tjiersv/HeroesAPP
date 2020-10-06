@@ -244,3 +244,9 @@ h1 {
     color: #bbbbbb;
     transition: ease-in 0.25s;
 }
+
+
+
+.navbar > a {
+    color: white !important;
+}
