@@ -26,11 +26,13 @@ export class ContactoComponent implements OnInit {
 
       //REACTIVE FORM
       this.miGrupo = this.fb.group({
-        phone: [0, Validators.compose([Validators.required, Validators.min(0)])],
-        email: ['', Validators.compose([Validators.required, Validators.email])],
-        addresses: this.fb.array([
-          this.fb.control('')
-        ])
+        name: ['', [Validators.required, Validators.minLength(1)]],
+        age: [0, [Validators.required, Validators.min(1)]],
+        phone: ['', [Validators.required, Validators.pattern(/^(\+?56)?(\s?)(0?9)(\s?)[9876543]\d{7}$/
+        )]],
+        email: ['', [Validators.required, Validators.email]],
+        message: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(255)]],
+        addresses: this.fb.array([])
       });
 
       // this.message.setValue('hola');
@@ -61,29 +63,16 @@ export class ContactoComponent implements OnInit {
   // }
   
   handleSubmit() {
-    console.log("-----------------------");
-    console.log("Mi GRUPO", this.miGrupo);
-    console.log("CONTROLADORES", this.miGrupo.controls);
-    console.log("VALORES", this.miGrupo.value);
+    // console.log("-----------------------");
+    // console.log("Mi GRUPO", this.miGrupo);
+    // console.log("CONTROLADORES", this.miGrupo.controls);
+    // console.log("VALORES", this.miGrupo.value);
+    console.log("VALIDACION", this.miGrupo.errors);
     console.log("VALIDACION", this.miGrupo.valid);
-    console.log("VALIDACION", this.miGrupo);
     
     
-    if(this.miGrupo.valid) {
-      console.log('enviado a backend');
-    }
+    if(this.miGrupo.valid) { console.log('enviado a backend'); }
     
-  }
-
-  changeValues() {
-    
-    //this.miGrupo.setValue({
-    //  email: 'tjier@tjier.tjier'
-    //});
-
-    this.miGrupo.patchValue({
-      email: 'tjier@tjier.tjier'
-    });
   }
 
 }

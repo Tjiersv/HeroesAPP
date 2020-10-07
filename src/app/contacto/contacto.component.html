@@ -20,65 +20,80 @@
   <!-- Reactive Form -->
   <form class="form-group" [formGroup]="miGrupo" (ngSubmit)="handleSubmit()">
 
-    <div class="form-group">
-      <label for="phone">
-        Teléfono
+    <div class="form-group row">
+      <label for="name">
+        Nombre completo
       </label>
-      <input class="form-control" name="phone" type="number" formControlName="phone">
-      <p class="danger-text" *ngIf="miGrupo.get('phone').invalid">Error formato teléfono</p>
+      <input class="form-control" name="name" type="text" formControlName="name">
+      <p class="danger-text" *ngIf="miGrupo.get('name').value !== '' && miGrupo.get('name').invalid">Error formato teléfono</p>
     </div>
 
-    <div class="form-group">
+    <div class="form-group row">
+      <label for="age">
+        Edad
+      </label>
+      <input class="form-control" name="age" type="number" formControlName="age">
+      <p class="danger-text" *ngIf="miGrupo.get('age').value !== 0 && miGrupo.get('age').invalid">Error formato teléfono</p>
+    </div>
+
+
+    <div class="form-group row">
+      <label for="phone">
+        Teléfono personal
+      </label>
+      <input class="form-control" name="phone" type="text" formControlName="phone">
+      <p class="danger-text" *ngIf="miGrupo.get('phone').value !== '' && miGrupo.get('phone').invalid">Formato incorrecto</p>
+    </div>
+
+    <div class="form-group row">
       <label for="email">
-        Correo
+        Correo electrónico
       </label>
       <input class="form-control" name="email" type="text" formControlName="email">
       <P class="danger-text" *ngIf="miGrupo.get('email').value !== '' && miGrupo.get('email').invalid">Favor de ingresar
         un formato correcto</P>
     </div>
 
+    <div class="form-group row">
+      <label for="message">
+        Mensaje
+      </label>
+      <textarea class="form-control" name="message" aria-label="With textarea" formControlName="message"></textarea>
+      <P class="danger-text"
+       *ngIf="miGrupo.get('message').value !== '' && miGrupo.get('message').invalid"
+      >Debe ingresar un minimo de 10 caracteres y un máximo de 255</P>
+    </div>
+
+
     <hr>
     <!-- DIRECCIONES -->
     <div class="form-group" formArrayName="addresses">
-      
       <div class="row">
-        <h3 class="col-md-10">Direcciones</h3>
-        <button 
-          class="btn btn-info"
-          type="button"
-          (click)="addToAddresses()"
-        >
+        <div class="col-md-9">
+          <h3 *ngIf="addresses.controls.length > 0">Direcciones</h3>
+        </div>
+        <button class="btn btn-info col-md-3" type="button" (click)="addToAddresses()">
           Añadir dirección
         </button>
-        
       </div>
 
       <br>
 
       <div class="row" *ngFor="let address of addresses.controls; let i = index">
-
         <div class="form-group col-md-8">
+          <label for="email">Dirección n°{{ i + 1 }}</label>
           <input class="form-control" type="text" [formControlName]="i">
         </div>
-        
-        <br>
-
-        <div class="col-auto"> 
-          <button
-            name="boton"
-            class="btn btn-danger"
-            type="button"
-            *ngIf="i !== 0"
-            (click)="removeAddress(i)"
-          >
+        <div class="btn-wrapper col-md-4">
+          <button class="btn btn-danger" name="boton" type="button" (click)="removeAddress(i)">
             Remover dirección
           </button>
         </div>
-
-
       </div>
 
     </div>
+
+    <br>
 
     <button class="btn btn-primary" type="submit">Enviar formulario</button>
 
