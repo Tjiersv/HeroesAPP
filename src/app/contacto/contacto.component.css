@@ -12,5 +12,11 @@ h3 {
 
 .danger-text {
     color: red;
-    text-transform: uppercase !important;
+}
+
+.btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 10px;
 }
