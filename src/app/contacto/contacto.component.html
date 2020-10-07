@@ -1,46 +1,89 @@
 <div class="container">
 
-    <br>
-    <h3>FORM CONTROL</h3>
-    <!-- BASIC Reactive Form -->
-    <form class="form-group" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="message">
-                <h3>Mensaje</h3>
-            </label>
-            <input class="form-control" name="message" type="text" [formControl]="message">
-            <p class="danger-text" *ngIf="message.invalid">Error formato del mensaje</p>
+  <!-- <br>
+  <h3>FORM CONTROL</h3>
+  <form class="form-group" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="message">
+        <h3>Mensaje</h3>
+      </label>
+      <input class="form-control" name="message" type="text" [formControl]="message">
+      <p class="danger-text" *ngIf="message.invalid">Error formato del mensaje</p>
+    </div>
+
+    <button class="btn btn-primary" type="submit">ENVIAR</button>
+  </form>
+
+  <br>
+  <h3>FORM BUILDER</h3> -->
+  <br>
+  <!-- Reactive Form -->
+  <form class="form-group" [formGroup]="miGrupo" (ngSubmit)="handleSubmit()">
+
+    <div class="form-group">
+      <label for="phone">
+        Teléfono
+      </label>
+      <input class="form-control" name="phone" type="number" formControlName="phone">
+      <p class="danger-text" *ngIf="miGrupo.get('phone').invalid">Error formato teléfono</p>
+    </div>
+
+    <div class="form-group">
+      <label for="email">
+        Correo
+      </label>
+      <input class="form-control" name="email" type="text" formControlName="email">
+      <P class="danger-text" *ngIf="miGrupo.get('email').value !== '' && miGrupo.get('email').invalid">Favor de ingresar
+        un formato correcto</P>
+    </div>
+
+    <hr>
+    <!-- DIRECCIONES -->
+    <div class="form-group" formArrayName="addresses">
+      
+      <div class="row">
+        <h3 class="col-md-10">Direcciones</h3>
+        <button 
+          class="btn btn-info"
+          type="button"
+          (click)="addToAddresses()"
+        >
+          Añadir dirección
+        </button>
+        
+      </div>
+
+      <br>
+
+      <div class="row" *ngFor="let address of addresses.controls; let i = index">
+
+        <div class="form-group col-md-8">
+          <input class="form-control" type="text" [formControlName]="i">
         </div>
         
-        <button class="btn btn-primary" type="submit">ENVIAR</button>
-    </form>
+        <br>
 
-    <br>
-    <h3>FORM BUILDER</h3>
-
-    <!-- Reactive Form -->
-    <form class="form-group" [formGroup]="miGrupo" (ngSubmit)="handleSubmit()">
-
-        <div class="form-group">
-            <label for="phone">
-                <h3>Teléfono</h3>
-            </label>
-            <input class="form-control" name="phone" type="number" formControlName="phone">
-            <p class="danger-text" *ngIf="miGrupo.get('phone').invalid">Error formato teléfono</p>
+        <div class="col-auto"> 
+          <button
+            name="boton"
+            class="btn btn-danger"
+            type="button"
+            *ngIf="i !== 0"
+            (click)="removeAddress(i)"
+          >
+            Remover dirección
+          </button>
         </div>
 
-        <div class="form-group">
-            <label for="email">
-                <h3>Correo</h3>
-            </label>
-            <input class="form-control" name="email" type="text" formControlName="email">
-            <P class="danger-text" *ngIf="miGrupo.get('email').value !== '' && miGrupo.get('email').invalid">Favor de ingresar un formato correcto</P>
-        </div>
 
-        <button class="btn btn-primary" type="submit">ENVIAR</button>            
+      </div>
 
-    </form>
+    </div>
 
-    <button class="btn btn-danger" type="button" (click)="changeValues()">SET VALUE</button> 
+    <button class="btn btn-primary" type="submit">Enviar formulario</button>
+
+  </form>
+
+  <!-- <button class="btn btn-danger" type="button" (click)="changeValues()">SET VALUE</button> -->
 
 </div>

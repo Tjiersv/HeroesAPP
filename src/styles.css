@@ -245,8 +245,15 @@ h1 {
     transition: ease-in 0.25s;
 }
 
-
-
 .navbar > a {
     color: white !important;
+}
+
+.navbar {
+    background-color: #fd253b !important;
+}
+
+.nav-link {
+    color: white !important;
+    font-weight: bold;
 }
