@@ -5,13 +5,17 @@ import { Heroe } from '../../shared/classes/heroe';
 export interface HeroesState {
     heroes: Heroe[],
     total: number,
-    loading: boolean
+    page: number,
+    step: number,
+    loading: boolean,
     error: any
 };
 
 export const heroesInitialState: HeroesState = {
     heroes: [],
     total: 0,
+    page: 0,
+    step: 20,
     loading: false,
     error: null
 };
@@ -27,7 +31,7 @@ const _heroesReducer = createReducer(heroesInitialState,
         ...state,
         loading: false,
         heroes: [...data],
-        total
+        total: Math.ceil(total / state.step)  
     })),
 
     on(getHeroesError, (state, { payload }) => ({

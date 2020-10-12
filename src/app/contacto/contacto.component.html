@@ -1,67 +1,44 @@
 <div class="container">
 
-  <!-- <br>
-  <h3>FORM CONTROL</h3>
-  <form class="form-group" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="message">
-        <h3>Mensaje</h3>
-      </label>
-      <input class="form-control" name="message" type="text" [formControl]="message">
-      <p class="danger-text" *ngIf="message.invalid">Error formato del mensaje</p>
-    </div>
-
-    <button class="btn btn-primary" type="submit">ENVIAR</button>
-  </form>
-
   <br>
-  <h3>FORM BUILDER</h3> -->
-  <br>
+
   <!-- Reactive Form -->
   <form class="form-group" [formGroup]="miGrupo" (ngSubmit)="handleSubmit()">
 
-    <div class="form-group row">
-      <label for="name">
-        Nombre completo
-      </label>
-      <input class="form-control" name="name" type="text" formControlName="name">
-      <p class="danger-text" *ngIf="miGrupo.get('name').value !== '' && miGrupo.get('name').invalid">Error formato teléfono</p>
-    </div>
+    <!-- NAME -->
+    <app-inputs [props]="propsName"></app-inputs>
 
-    <div class="form-group row">
-      <label for="age">
-        Edad
-      </label>
-      <input class="form-control" name="age" type="number" formControlName="age">
-      <p class="danger-text" *ngIf="miGrupo.get('age').value !== 0 && miGrupo.get('age').invalid">Error formato teléfono</p>
-    </div>
+    <!-- AGE -->
+    <app-inputs [props]="propsAge">
+      <p class="danger-text" *ngIf="miGrupo.get('age').value !== 0 && miGrupo.get('age').invalid">La edad es requerida
+      </p>
+    </app-inputs>
 
+    <!-- PHONE -->
+    <app-inputs [props]="propsPhone">
+      <p class="danger-text" *ngIf="miGrupo.get('phone').value !== '' && miGrupo.get('phone').invalid">Formato
+        incorrecto</p>
+    </app-inputs>
 
-    <div class="form-group row">
-      <label for="phone">
-        Teléfono personal
-      </label>
-      <input class="form-control" name="phone" type="text" formControlName="phone">
-      <p class="danger-text" *ngIf="miGrupo.get('phone').value !== '' && miGrupo.get('phone').invalid">Formato incorrecto</p>
-    </div>
-
-    <div class="form-group row">
-      <label for="email">
-        Correo electrónico
-      </label>
-      <input class="form-control" name="email" type="text" formControlName="email">
+    <!-- EMAIL -->
+    <app-inputs [props]="propsEmail">
       <P class="danger-text" *ngIf="miGrupo.get('email').value !== '' && miGrupo.get('email').invalid">Favor de ingresar
         un formato correcto</P>
-    </div>
+    </app-inputs>
+
+    <!-- MESSAGE -->
+    <app-inputs [props]="propsEmail">
+      <P class="danger-text" *ngIf="miGrupo.get('email').value !== '' && miGrupo.get('email').invalid">Favor de ingresar
+        un formato correcto</P>
+    </app-inputs>
 
     <div class="form-group row">
       <label for="message">
         Mensaje
       </label>
       <textarea class="form-control" name="message" aria-label="With textarea" formControlName="message"></textarea>
-      <P class="danger-text"
-       *ngIf="miGrupo.get('message').value !== '' && miGrupo.get('message').invalid"
-      >Debe ingresar un minimo de 10 caracteres y un máximo de 255</P>
+      <P class="danger-text" *ngIf="miGrupo.get('message').value !== '' && miGrupo.get('message').invalid">Debe ingresar
+        un minimo de 10 caracteres y un máximo de 255</P>
     </div>
 
     <!-- DIRECCIONES -->
@@ -96,7 +73,5 @@
     <button class="btn btn-primary" type="submit">Enviar formulario</button>
 
   </form>
-
-  <!-- <button class="btn btn-danger" type="button" (click)="changeValues()">SET VALUE</button> -->
 
 </div>

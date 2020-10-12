@@ -34,7 +34,9 @@ export class HeroesComponent implements OnInit {
     //     this.heroes = data.map(({id, name, description, modified, thumbnail, resourceURI, teamColor, ...rest}) => new Heroe(id, name, description, modified, thumbnail, resourceURI, this.heroesService.getTeamColor(id)))
     //     this.heroesService.total = Math.ceil(total / this.heroesService.step);
     //   });
-    this.store.select('heroes').subscribe(({ heroes }) => this.heroes = heroes);
+    this.store.select('heroes').subscribe(({ heroes, total }) => {
+      this.heroes = heroes;
+    });
     this.store.dispatch( getHeroes() );
   }
 

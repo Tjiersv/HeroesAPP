@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap, tap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 
 import * as heroesActions from '../actions/heroes.actions';
 import { HeroesService } from '../../shared/services/heroes.service';
+import { of } from 'rxjs';
 
 @Injectable()
 export class HeroesEffects {
@@ -22,7 +23,8 @@ export class HeroesEffects {
           .getHeroes()
           .pipe(
             tap(data => console.log(data)),
-            map(({total, data}) => heroesActions.getHeroesSuccess({ data, total }))
+            map(({total, data}) => heroesActions.getHeroesSuccess({ data, total })),
+            catchError(error => of(heroesActions.getHeroesError({ 'payload': error })))
           )
       )
     )

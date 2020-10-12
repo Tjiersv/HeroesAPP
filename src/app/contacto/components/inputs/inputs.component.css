@@ -1,0 +1,22 @@
+label {
+    color: white !important;
+}
+
+.danger-text {
+    color: white;
+}
+
+.btn-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 10px;
+}
+
+.maniOne {
+    background-color: red;
+}
+
+.maniTwo {
+    background-color: blue;
+}
