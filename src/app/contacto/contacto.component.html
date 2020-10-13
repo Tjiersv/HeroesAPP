@@ -1,21 +1,5 @@
 <div class="container">
 
-  <!-- <br>
-  <h3>FORM CONTROL</h3>
-  <form class="form-group" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="message">
-        <h3>Mensaje</h3>
-      </label>
-      <input class="form-control" name="message" type="text" [formControl]="message">
-      <p class="danger-text" *ngIf="message.invalid">Error formato del mensaje</p>
-    </div>
-
-    <button class="btn btn-primary" type="submit">ENVIAR</button>
-  </form>
-
-  <br>
-  <h3>FORM BUILDER</h3> -->
   <br>
   <!-- Reactive Form -->
   <form class="form-group" [formGroup]="miGrupo" (ngSubmit)="handleSubmit()">
@@ -25,7 +9,7 @@
         Nombre completo
       </label>
       <input class="form-control" name="name" type="text" formControlName="name">
-      <p class="danger-text" *ngIf="miGrupo.get('name').value !== '' && miGrupo.get('name').invalid">Error formato teléfono</p>
+      <p class="danger-text" *ngIf="miGrupo.get('name').value !== '' && miGrupo.get('name').invalid">Error formato de nombre</p>
     </div>
 
     <div class="form-group row">
