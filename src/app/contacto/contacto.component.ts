@@ -32,7 +32,7 @@ export class ContactoComponent implements OnInit {
     }); 
     
     this.addToGroup('name', this.propsName = {
-      control: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+      control: new FormControl('', [Validators.required]),
       label: 'Nombre de usuario',
       type: 'text',
     });
@@ -54,6 +54,7 @@ export class ContactoComponent implements OnInit {
       label: 'Teléfono del usuario',
       type: 'text',
     });
+
   }
 
   get addresses() {
