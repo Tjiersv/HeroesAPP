@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { getHeroes, getHeroesSuccess, getHeroesError} from '../actions';
+import { getHeroes, getHeroesSuccess, getHeroesError } from '../actions';
 import { Heroe } from '../../shared/classes/heroe';
 
 export interface HeroesState {
@@ -31,14 +31,31 @@ const _heroesReducer = createReducer(heroesInitialState,
         ...state,
         loading: false,
         heroes: [...data],
-        total: Math.ceil(total / state.step)  
+        total: Math.ceil(total / state.step)
     })),
 
     on(getHeroesError, (state, { payload }) => ({
         ...state,
         loading: false,
-        error: payload 
+        error: payload
     })),
+
+    //function _heroesReducer(heroesInitialState, action) {
+    //    switch (action.type) {
+    //        case GET_HEROES:
+    //            return {
+    //                ...state,
+    //                loading: true
+    //            };
+    //        case GET_HEROES_SUCCESS
+    //            return {
+    //                ...state,
+    //                count: state.count - action.payload
+    //            };
+    //        default:
+    //            return state;
+    //    }
+    //}
 
 );
 

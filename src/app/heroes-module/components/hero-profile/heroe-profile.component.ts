@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { map } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 import { Heroe } from 'src/app/shared/interfaces/heroe';
 import { HeroesService } from '../../../shared/services/heroes.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducers';
 
 @Component({
   selector: 'app-heroe-profile',
@@ -20,15 +22,16 @@ export class HeroeProfileComponent implements OnInit {
   public question_modal: string;
   public team: string = "";
   
-
   constructor(
     private route: ActivatedRoute,
     private heroesService: HeroesService,
     private location: Location,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private store: Store<AppState>,
   ) { }
 
   ngOnInit(): void {
+    console.log("INIT");
     this.route.params
       .subscribe(params => {
         this.id = params.id;
