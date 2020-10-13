@@ -17,15 +17,18 @@ export class HeroesEffects {
   getHeroes$ = createEffect(
     () => this.actions$.pipe(
       ofType(heroesActions.getHeroes),
-      tap(data => console.log(data)),
+      tap(data => console.log('tap', data)),
       mergeMap(
-        () => this.heroesService
-          .getHeroes()
-          .pipe(
-            tap(data => console.log(data)),
-            map(({total, data}) => heroesActions.getHeroesSuccess({ data, total })),
-            catchError(error => of(heroesActions.getHeroesError({ 'payload': error })))
-          )
+        ({type, page}) => {
+          console.log('mergeMap', type, page)
+          return this.heroesService
+            .getHeroes('', page)
+            .pipe(
+              tap(data => console.log(data)),
+              map(({ total, data }) => heroesActions.getHeroesSuccess({ data, total })),
+              catchError(error => of(heroesActions.getHeroesError({ 'payload': error })))
+            )
+        }
       )
     )
   );

@@ -22,9 +22,10 @@ export const heroesInitialState: HeroesState = {
 
 const _heroesReducer = createReducer(heroesInitialState,
 
-    on(getHeroes, state => ({
+    on(getHeroes, (state, { page }) => ({
         ...state,
-        loading: true
+        loading: true,
+        page: (page || page === 0) ? page : state.page
     })),
 
     on(getHeroesSuccess, (state, { data, total }) => ({
@@ -37,25 +38,9 @@ const _heroesReducer = createReducer(heroesInitialState,
     on(getHeroesError, (state, { payload }) => ({
         ...state,
         loading: false,
-        error: payload
+        error: payload,
+        page: 0
     })),
-
-    //function _heroesReducer(heroesInitialState, action) {
-    //    switch (action.type) {
-    //        case GET_HEROES:
-    //            return {
-    //                ...state,
-    //                loading: true
-    //            };
-    //        case GET_HEROES_SUCCESS
-    //            return {
-    //                ...state,
-    //                count: state.count - action.payload
-    //            };
-    //        default:
-    //            return state;
-    //    }
-    //}
 
 );
 

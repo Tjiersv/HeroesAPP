@@ -2,7 +2,10 @@ import { createAction, props } from '@ngrx/store';
 import { Heroe } from '../../shared/classes/heroe';
 
 export const getHeroes = createAction(
-    '[Heroes] GetHeroes'
+    '[Heroes] GetHeroes',
+    props<{ 
+        page: number
+     }>()
 );
 
 export const getHeroesSuccess = createAction(

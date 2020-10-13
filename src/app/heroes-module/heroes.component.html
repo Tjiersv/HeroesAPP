@@ -21,9 +21,9 @@
     </div>
     
     <div class="paginator col-xs-12">
-        <a class="paginator-prev" (click)="prevPage()" *ngIf="heroesService.page > 0">Prev</a>
-        Página {{heroesService.page + 1}} de {{heroesService.total}}
-        <a class="paginator-next" (click)="nextPage()" *ngIf="heroesService.page < heroesService.total - 1">Next</a>
+        <a class="paginator-prev" (click)="prevPage()" *ngIf="page > 0">Prev</a>
+        Página {{page + 1}} de {{total}}
+        <a class="paginator-next" (click)="nextPage()" *ngIf="page < total - 1">Next</a>
     </div>
 
 </div>

@@ -16,6 +16,8 @@ export class HeroesComponent implements OnInit {
   public title = 'Lista de Heroes';
   public heroes: Heroe[] = [];
   public searchString: string;
+  public page = 0;
+  public total = 0;
 
   constructor(
     private store: Store<AppState>,
@@ -23,7 +25,7 @@ export class HeroesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void { 
-    this.submitSearch(0);
+    this.submitSearch(this.page);
   }
 
   submitSearch(page?: number) {
@@ -36,18 +38,22 @@ export class HeroesComponent implements OnInit {
     //   });
     this.store
       .select('heroes')
-      .subscribe(({ heroes, total }) => {
+      .subscribe(({ heroes, total, page }) => {
         this.heroes = heroes;
+        this.page = page;
+        this.total = total;
       });
-    this.store.dispatch( getHeroes() );
+    this.store.dispatch( getHeroes({ page }) );
   }
 
   prevPage() {
-    //this.submitSearch(this.heroesService.page - 1)
+    //this.submitSearch(this.heroesService.page - 1);
+    this.submitSearch(this.page - 1);
   }
 
   nextPage() {
     //this.submitSearch(this.heroesService.page + 1);
+    this.submitSearch(this.page + 1);
   }
 
 }

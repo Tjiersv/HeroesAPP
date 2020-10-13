@@ -27,6 +27,7 @@ export class HeroesService {
 
   private getApiUrl(): string {
     return `${environment.protocol}://${environment.apiUrl}`;
+    //return `${environment.protocol}://errorEnUrl${environment.apiUrl}`;
   };
 
   private getApiKey(): string {
