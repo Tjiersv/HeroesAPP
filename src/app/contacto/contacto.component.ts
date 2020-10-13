@@ -31,6 +31,10 @@ export class ContactoComponent implements OnInit {
         addresses: this.fb.array([])
       });
 
+      this.miGrupo.valueChanges.subscribe(
+        datos => console.log('VALUECHANGE', datos)
+      )
+
   }
 
   get addresses() {
