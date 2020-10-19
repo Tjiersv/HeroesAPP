@@ -12,8 +12,8 @@
             <a 
                 [routerLink]="'/heroe/' + heroe.id" 
                 class="hero-entry" 
-                [style.border-color]="heroesService['group_colors'][heroe.teamColor]" 
                 [style.background-image]="'url(' + heroe.thumbnail.path + '.' + heroe.thumbnail.extension + ')'"
+                [style.border-color]="heroesService['group_colors'][heroe.teamColor]" 
             >
                 <span>{{heroe.name}}</span>
             </a>

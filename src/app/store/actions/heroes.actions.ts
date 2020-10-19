@@ -12,7 +12,8 @@ export const getHeroesSuccess = createAction(
     '[Heroes] GetHeroesSuccess',
     props<{ 
         data: Heroe[],
-        total: number
+        total: number,
+        page: number
      }>()
 );
 

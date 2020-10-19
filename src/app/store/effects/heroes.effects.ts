@@ -14,22 +14,26 @@ export class HeroesEffects {
     public heroesService: HeroesService
   ) { }
 
-  getHeroes$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(heroesActions.getHeroes),
-      //tap(data => console.log('tap', data)),
-      mergeMap(
-        ({type, page}) => {
-          console.log('mergeMap', type, page)
-          return this.heroesService
-            .getHeroes('', page)
-            .pipe(
-              //tap(data => console.log(data)),
-              map(({ total, data }) => heroesActions.getHeroesSuccess({ data, total })),
-              catchError(error => of(heroesActions.getHeroesError({ 'payload': error })))
-            )
-        }
+  getHeroes$ = createEffect(() => this.actions$.pipe(
+
+    ofType(heroesActions.getHeroes),
+
+    tap(data => console.log('tap', data)),
+
+    mergeMap(({ type, page }) => {
+      console.log('mergeMap', type, page);
+      return this.heroesService.getHeroes('', page).pipe(
+
+        tap(data => console.log('TAP.MERGEMAP', data)),
+
+        map(({ total, data }) => {
+          return heroesActions.getHeroesSuccess({ data, total, page });
+        }),
+
+        catchError(error => of(heroesActions.getHeroesError({ 'payload': error })))
+
       )
-    )
-  );
+    })
+
+  ));
 }

@@ -22,17 +22,17 @@ export const heroesInitialState: HeroesState = {
 
 const _heroesReducer = createReducer(heroesInitialState,
 
-    on(getHeroes, (state, { page }) => ({
+    on(getHeroes, state => ({
         ...state,
-        loading: true,
-        page: (page || page === 0) ? page : state.page
+        loading: true
     })),
 
-    on(getHeroesSuccess, (state, { data, total }) => ({
+    on(getHeroesSuccess, (state, { data, total, page }) => ({
         ...state,
         loading: false,
         heroes: [...data],
-        total: Math.ceil(total / state.step)
+        total: Math.ceil(total / state.step),
+        page: page//(page || page === 0) ? page : state.page 
     })),
 
     on(getHeroesError, (state, { payload }) => ({
