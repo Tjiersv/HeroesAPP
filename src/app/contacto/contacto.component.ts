@@ -36,7 +36,9 @@ export class ContactoComponent implements OnInit {
       })
 
       this.miGrupo.valueChanges.subscribe(
-        datos => console.log('VALUECHANGE', datos)
+        datos => {
+          setTimeout(() => console.log('VALUECHANGE', datos), 500)
+        }
       )
 
   }
