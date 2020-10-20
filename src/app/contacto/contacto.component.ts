@@ -31,6 +31,10 @@ export class ContactoComponent implements OnInit {
         addresses: this.fb.array([])
       });
 
+      const grupoDos = new FormGroup({
+        name: new FormControl('ANA')
+      })
+
       this.miGrupo.valueChanges.subscribe(
         datos => console.log('VALUECHANGE', datos)
       )
